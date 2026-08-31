@@ -29,8 +29,7 @@ CATEGORY_HINTS: dict[str, str] = {
     ),
     "💊 Здоровье": (
         "Аптеки (PHARM, PARMA, FAMILY PHARM, NATALI PHARM, GEDEON RICHTER), "
-        "лаборатории (CITO LAB), клиники, стоматология (PERFECT SMILE), "
-        "ветеринария (VET EXPRESS)"
+        "лаборатории (CITO LAB), клиники, стоматология (PERFECT SMILE)"
     ),
     "🛒 Продукты": (
         "Продуктовые сети: YEREVAN CITY, SAS, SUPERMARKET, GROCERY, "
@@ -47,6 +46,10 @@ CATEGORY_HINTS: dict[str, str] = {
     "💱 Обмен": "ОБМЕН ВАЛЮТ, უნაღდო კონვერტაცია",
     "🏦 Инкассо": "Инкассо, прочая банковская конвертация",
     "🏋️ Спорт": "Gym, THE ONE GYM, фитнес",
+    "🐱 Кошка": (
+        "Зоомагазины и товары для кошки: KAKADU, VET EXPRESS, Pet City, Animania, "
+        "4 Лапы, Бетховен, корма, наполнитель"
+    ),
     "🎮 Развлечения": (
         "Steam, игры, кино (CINEMASTAR), SHOW4ME, CYBERCAFE, CYBER ARENA, LEDZ"
     ),
@@ -86,16 +89,17 @@ Use the exact "name" string (including emoji).
    - უნაღდო კონვერტაცია → 💱 Обмен
    - ბარათზე თანხის ჩარიცხვა → ➕ Поступления (not salary)
 5. Supermarkets (YEREVAN CITY*, SAS, GROCERY, SUPERMARKET, 21 MARKET) → 🛒 Продукты
-6. Pharmacies / labs / vet / dental (PHARM, PARMA, CITO, VET, PERFECT SMILE) → 💊 Здоровье
-7. Contabo / hosting / non-Google-One SaaS → 📌 Разное (NOT Google One)
-8. Google One only if description clearly says Google One → ☁️ Google One
-9. AI POWERED IDE → always 💻 IDE
-10. GLOBAL BEAUTY / barbershop / beauty salon → 💇 Салон (not entertainment)
-11. bank_side=income with salary/contract → 💼 Зарплата; \
+6. Pharmacies / labs / dental (PHARM, PARMA, CITO, PERFECT SMILE) → 💊 Здоровье
+7. KAKADU, VET EXPRESS and other pet supply stores → 🐱 Кошка (NOT Здоровье, NOT Разное)
+8. Contabo / hosting / non-Google-One SaaS → 📌 Разное (NOT Google One)
+9. Google One only if description clearly says Google One → ☁️ Google One
+10. AI POWERED IDE → always 💻 IDE
+11. GLOBAL BEAUTY / barbershop / beauty salon → 💇 Салон (not entertainment)
+12. bank_side=income with salary/contract → 💼 Зарплата; \
 generic card top-up → ➕ Поступления
-12. Transfers → 🔁 Переводы; keep bank_side (income if credit / expense if debit)
-13. YANDEX*4121*GO, YANDEX GO, taxi → 🚕 Такси (NOT фастфуд, NOT доставка)
-14. Obey user_learned_rules in the payload as absolute overrides for matching descriptions
+13. Transfers → 🔁 Переводы; keep bank_side (income if credit / expense if debit)
+14. YANDEX*4121*GO, YANDEX GO, taxi → 🚕 Такси (NOT фастфуд, NOT доставка)
+15. Obey user_learned_rules in the payload as absolute overrides for matching descriptions
 
 Respond with JSON only:
 {"assignments":[{"i":0,"category":"<exact name>"}, ...]}

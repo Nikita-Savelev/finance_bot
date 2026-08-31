@@ -15,6 +15,7 @@ BASE_CATEGORIES: list[tuple[str, str]] = [
     ("💱 Обмен", "expense"),
     ("🏦 Инкассо", "expense"),
     ("🏋️ Спорт", "expense"),
+    ("🐱 Кошка", "expense"),
     ("🎮 Развлечения", "expense"),
     ("💇 Салон", "expense"),
     ("📦 Маркетплейсы", "expense"),
