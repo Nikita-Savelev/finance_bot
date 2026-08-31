@@ -1,0 +1,66 @@
+services:
+  main_bot:
+    build: .
+    container_name: finance_bot_main_bot
+    env_file: .env
+    environment:
+      - PG_HOST=postgres_db
+    entrypoint: /hr_bot/entrypoint.sh
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+
+  # Рассылки в MVP не используем — сервис выключен (profile mailing).
+  mailing_bot:
+    profiles: ["mailing"]
+    build: .
+    container_name: finance_bot_mailing_bot
+    env_file: .env
+    environment:
+      - PG_HOST=postgres_db
+    command: python manage.py start_mailing
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+      main_bot:
+        condition: service_started
+
+  django_admin:
+    build: .
+    container_name: finance_bot_django_admin
+    env_file: .env
+    environment:
+      - PG_HOST=postgres_db
+    command: "python -m gunicorn \
+      --bind :8000 \
+      --workers 4 \
+      --capture-output \
+      --log-level warning settings_bot.wsgi:application"
+    ports:
+      - '8002:8000'
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+      main_bot:
+        condition: service_started
+
+  postgres_db:
+    image: "postgres:15-alpine"
+    restart: "no"
+    container_name: finance_bot_postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qH6~*8tq&
+      POSTGRES_DB: finance_bot_db
+      POSTGRES_PORT: 5432
+    ports:
+      - "5434:5432"
+    volumes:
+      # Данные на диске в корне проекта — переживают docker compose down
+      - ./postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d finance_bot_db"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+      start_period: 5s

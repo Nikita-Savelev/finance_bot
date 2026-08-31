@@ -1,0 +1,8 @@
+postgres_data/
+.git/
+.gitignore
+.env
+__pycache__/
+*.pyc
+staticfiles/
+dump_file.sql

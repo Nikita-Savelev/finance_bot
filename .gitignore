@@ -1,0 +1,17 @@
+# Локальные секреты и данные
+.env
+.env.*
+!.env.example
+postgres_data/
+.venv/
+venv/
+staticfiles/
+__pycache__/
+*.pyc
+.DS_Store
+*.dump
+backups/
+
+# Только локально (не в remote)
+AGENTS.md
+dump_file.sql
